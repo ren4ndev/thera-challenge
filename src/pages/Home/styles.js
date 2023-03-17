@@ -1,8 +1,21 @@
-/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
-const HelloWorld = styled.h1``;
+const SignInContainer = styled.main`
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.secondary};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+`;
+
+const Logo = styled.img`
+  height: 74px;
+  width: 188px;
+`;
 
 export {
-  HelloWorld,
+  SignInContainer,
+  Logo,
 };

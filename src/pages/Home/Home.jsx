@@ -1,11 +1,17 @@
 import React from 'react';
 import {
-  HelloWorld,
+  SignInContainer,
+  Logo,
 } from './styles';
+import logo from '../../assets/images/Logo.svg';
+import LoginForm from '../../components/LoginForm/LoginForm';
 
 function Home() {
   return (
-    <HelloWorld>Hello World</HelloWorld>
+    <SignInContainer>
+      <Logo src={logo} alt="Thera Solutions Logo" />
+      <LoginForm />
+    </SignInContainer>
   );
 }
 
