@@ -6,6 +6,7 @@ const StyledButton = styled.button`
   background-color: ${({ theme }) => theme.colors.tertiary};
   border: none;
   border-radius: 5px;
+  cursor: pointer;
   display: flex;
   font-family: ${({ theme }) => theme.fonts.sans};
   height: 63px;

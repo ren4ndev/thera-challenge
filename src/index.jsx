@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import router from './router';
+import {
+  BrowserRouter,
+} from 'react-router-dom';
 import GlobalStyle from './styles/globalStyle';
 import { theme } from './styles/theme';
+import Router from './router';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <GlobalStyle />
     <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
 );
