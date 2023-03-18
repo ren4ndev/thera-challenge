@@ -1,10 +1,11 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import AuthService from '../../services/auth';
+import useAuth from '../../services/useAuth';
 
 function PrivateRoute({ children }) {
-  const token = AuthService.getToken();
+  const { getToken } = useAuth();
+  const token = getToken();
   return token ? children : <Navigate to="/" />;
 }
 

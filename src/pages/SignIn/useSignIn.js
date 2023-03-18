@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthService from '../../services/auth';
+import useAuth from '../../services/useAuth';
 
 const useSignIn = () => {
   const [username, setUsername] = useState('');
@@ -9,6 +9,7 @@ const useSignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -22,11 +23,10 @@ const useSignIn = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
     setMessage();
     setIsLoading(true);
 
-    AuthService.login(username, password).then(
+    login(username, password).then(
       () => {
         navigate('/tracker');
         window.location.reload();
