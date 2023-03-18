@@ -10,8 +10,14 @@ import {
   TableData,
 } from './styles';
 import Typography from '../Typography';
+import useTimeTable from './useTimeTable';
 
 function TimeTable() {
+  const {
+    isLoading: isLoadingTimesheets,
+    data: timeData,
+  } = useTimeTable();
+
   const renderTableHeaders = () => {
     const headers = [
       'DATA',
@@ -38,31 +44,12 @@ function TimeTable() {
     );
   };
 
-  const renderTableData = () => {
-    const data = [
-      {
-        id: 1,
-        date: '24/06/2006',
-        start: '08:00',
-        startLunch: '12:00',
-        endLunch: '13:30',
-        end: '17:30',
-        totalTime: '08:00',
-      },
-      {
-        id: 2,
-        date: '24/06/2006',
-        start: '08:00',
-        startLunch: '12:00',
-        endLunch: '13:30',
-        end: '17:30',
-        totalTime: '08:00',
-      },
-    ];
-
-    return (
+  const renderTableData = () => (
+    isLoadingTimesheets ? (
+      null
+    ) : (
       <>
-        {data.map((item) => (
+        {timeData.map((item) => (
           <TableRow key={item.id}>
             <TableData>
               <Typography
@@ -121,8 +108,8 @@ function TimeTable() {
           </TableRow>
         ))}
       </>
-    );
-  };
+    )
+  );
 
   return (
     <TimeTableContainer>
