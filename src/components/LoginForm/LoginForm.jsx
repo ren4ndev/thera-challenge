@@ -43,7 +43,6 @@ function LoginForm({
       <Button type="submit">
         <Typography
           type="regular"
-          color="secondary"
           weight="bold"
         >
           {isLoading ? (

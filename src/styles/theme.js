@@ -5,6 +5,7 @@ const theme = {
     tertiary: '#FCCD2A',
     quarternary: '#707070',
     white: '#FFFFFF',
+    gray: '#E8E8E8',
   },
   weight: {
     regular: '400',
@@ -16,6 +17,10 @@ const theme = {
   },
   typography: {
     types: {
+      body: {
+        size: '20px',
+        lineHeight: '27px',
+      },
       regular: {
         size: '26px',
         lineHeight: '36px',

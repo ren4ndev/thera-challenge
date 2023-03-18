@@ -6,9 +6,12 @@ import {
 
 function Button({
   children,
+  isActive,
 }) {
   return (
-    <StyledButton>
+    <StyledButton
+      isActive={isActive}
+    >
       {children}
     </StyledButton>
   );
@@ -19,6 +22,11 @@ Button.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
+  isActive: PropTypes.bool,
+};
+
+Button.defaultProps = {
+  isActive: true,
 };
 
 export default Button;

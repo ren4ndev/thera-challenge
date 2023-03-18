@@ -4,7 +4,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.secondary};
   display: flex;
-  padding: 54px 56px;
+  padding: 54px 56px 23px;
   height: auto;
   justify-content: space-between;
   width: 100%;
