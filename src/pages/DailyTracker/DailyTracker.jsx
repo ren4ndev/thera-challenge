@@ -12,6 +12,14 @@ function DailyTracker() {
   const {
     username,
     handleLogout,
+    stopwacth,
+    date,
+    onPressArrived,
+    onPressLunch,
+    onPressReturned,
+    onPressEnd,
+    isLoadingTimeSheets,
+    timesheetData,
   } = useDailyTracker();
 
   return (
@@ -20,9 +28,20 @@ function DailyTracker() {
         username={username}
         handleLogout={handleLogout}
       />
-      <TimeInfo />
-      <TimeActions />
-      <TimeTable />
+      <TimeInfo
+        stopwacth={stopwacth}
+        date={date}
+      />
+      <TimeActions
+        onPressArrived={onPressArrived}
+        onPressLunch={onPressLunch}
+        onPressReturned={onPressReturned}
+        onPressEnd={onPressEnd}
+      />
+      <TimeTable
+        isLoading={isLoadingTimeSheets}
+        data={timesheetData}
+      />
     </DaylyTrackerContainer>
   );
 }

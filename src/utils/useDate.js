@@ -3,6 +3,16 @@ const useDate = () => {
     return num.toString().padStart(2, '0');
   }
 
+  const dateToString = (date) => (
+    `${padTo2Digits(
+      date.getDate(),
+    )}/${padTo2Digits(
+      date.getMonth(),
+    )}/${padTo2Digits(
+      date.getFullYear(),
+    )}`
+  );
+
   const getDate = (timestamp) => {
     const date = new Date(timestamp);
     return `${padTo2Digits(
@@ -56,6 +66,8 @@ const useDate = () => {
       end,
     } = timestamps;
 
+    if (!start || !end) return '--:--:--';
+
     if (startLunch && endLunch) {
       const firstDelta = calculateDelta(start, startLunch);
       const secondDelta = calculateDelta(endLunch, end);
@@ -70,6 +82,7 @@ const useDate = () => {
     getDate,
     getHour,
     getTimeDelta,
+    dateToString,
   };
 };
 

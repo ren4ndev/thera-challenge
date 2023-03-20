@@ -1,17 +1,22 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {
   TimeActionsContainer,
 } from './styles';
 import Typography from '../Typography';
 import Button from '../Button';
 
-function TimeInfo() {
+function TimeActions({
+  onPressArrived,
+  onPressLunch,
+  onPressReturned,
+  onPressEnd,
+}) {
   return (
     <TimeActionsContainer>
       <Button
         isActive
-        onClick={() => null}
+        onClick={onPressArrived}
       >
         <Typography
           type="bold"
@@ -22,7 +27,7 @@ function TimeInfo() {
       </Button>
       <Button
         isActive={false}
-        onClick={() => null}
+        onClick={onPressLunch}
       >
         <Typography
           type="bold"
@@ -33,7 +38,7 @@ function TimeInfo() {
       </Button>
       <Button
         isActive={false}
-        onClick={() => null}
+        onClick={onPressReturned}
       >
         <Typography
           type="bold"
@@ -44,7 +49,7 @@ function TimeInfo() {
       </Button>
       <Button
         isActive={false}
-        onClick={() => null}
+        onClick={onPressEnd}
       >
         <Typography
           type="bold"
@@ -57,4 +62,11 @@ function TimeInfo() {
   );
 }
 
-export default TimeInfo;
+TimeActions.propTypes = {
+  onPressArrived: PropTypes.func.isRequired,
+  onPressLunch: PropTypes.func.isRequired,
+  onPressReturned: PropTypes.func.isRequired,
+  onPressEnd: PropTypes.func.isRequired,
+};
+
+export default TimeActions;

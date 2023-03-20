@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {
   TimeInfoContainer,
   DateInfo,
@@ -8,7 +8,11 @@ import {
 } from './styles';
 import Typography from '../Typography';
 
-function TimeInfo() {
+function TimeInfo({
+  date,
+  time,
+  stopwacth,
+}) {
   return (
     <TimeInfoContainer>
       <DateInfo>
@@ -17,7 +21,7 @@ function TimeInfo() {
           color="primary"
           weight="bold"
         >
-          24/06/2006
+          {date}
         </Typography>
       </DateInfo>
       <TimeClock>
@@ -26,7 +30,7 @@ function TimeInfo() {
           color="primary"
           weight="bold"
         >
-          17:32
+          {time}
         </Typography>
       </TimeClock>
       <TimeTracker>
@@ -35,11 +39,23 @@ function TimeInfo() {
           color="tertiary"
           weight="bold"
         >
-          07:02:13
+          {stopwacth}
         </Typography>
       </TimeTracker>
     </TimeInfoContainer>
   );
 }
+
+TimeInfo.propTypes = {
+  date: PropTypes.string,
+  time: PropTypes.string,
+  stopwacth: PropTypes.string,
+};
+
+TimeInfo.defaultProps = {
+  date: '24/06/2006',
+  time: '17:32',
+  stopwacth: '07:06:32',
+};
 
 export default TimeInfo;

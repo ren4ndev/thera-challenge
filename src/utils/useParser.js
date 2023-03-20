@@ -1,25 +1,13 @@
-import { useEffect } from 'react';
-import useRequestTimesheets from '../../services/useRequestTimesheets';
-import useDate from '../../hooks/useDate';
+import useDate from './useDate';
 
-const useTimeTable = () => {
-  const {
-    isLoading,
-    fetchTimesheet,
-    data,
-  } = useRequestTimesheets();
-
+const useParser = () => {
   const {
     getDate,
     getHour,
     getTimeDelta,
   } = useDate();
 
-  useEffect(() => {
-    fetchTimesheet();
-  }, []);
-
-  const parsedData = () => {
+  const parseTimesheetData = (data) => {
     if (!data) return null;
     const parsedTimesheet = data.items.map((item) => (
       {
@@ -36,9 +24,8 @@ const useTimeTable = () => {
   };
 
   return {
-    isLoading,
-    data: parsedData(),
+    parseTimesheetData,
   };
 };
 
-export default useTimeTable;
+export default useParser;

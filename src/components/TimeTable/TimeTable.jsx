@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {
   TimeTableContainer,
   TrackerTable,
@@ -10,14 +10,11 @@ import {
   TableData,
 } from './styles';
 import Typography from '../Typography';
-import useTimeTable from './useTimeTable';
 
-function TimeTable() {
-  const {
-    isLoading: isLoadingTimesheets,
-    data: timeData,
-  } = useTimeTable();
-
+function TimeTable({
+  isLoading,
+  data,
+}) {
   const renderTableHeaders = () => {
     const headers = [
       'DATA',
@@ -45,11 +42,11 @@ function TimeTable() {
   };
 
   const renderTableData = () => (
-    isLoadingTimesheets ? (
+    isLoading ? (
       null
     ) : (
       <>
-        {timeData.map((item) => (
+        {data.map((item) => (
           <TableRow key={item.id}>
             <TableData>
               <Typography
@@ -124,5 +121,17 @@ function TimeTable() {
     </TimeTableContainer>
   );
 }
+
+TimeTable.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]),
+    ),
+  ).isRequired,
+};
 
 export default TimeTable;
