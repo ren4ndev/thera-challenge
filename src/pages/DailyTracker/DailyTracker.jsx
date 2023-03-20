@@ -14,6 +14,8 @@ function DailyTracker() {
     handleLogout,
     stopwacth,
     date,
+    clock,
+    status,
     onPressArrived,
     onPressLunch,
     onPressReturned,
@@ -31,12 +33,14 @@ function DailyTracker() {
       <TimeInfo
         stopwacth={stopwacth}
         date={date}
+        clock={clock}
       />
       <TimeActions
         onPressArrived={onPressArrived}
         onPressLunch={onPressLunch}
         onPressReturned={onPressReturned}
         onPressEnd={onPressEnd}
+        status={status}
       />
       <TimeTable
         isLoading={isLoadingTimeSheets}

@@ -7,6 +7,7 @@ import Typography from '../Typography';
 import Button from '../Button';
 
 function TimeActions({
+  status,
   onPressArrived,
   onPressLunch,
   onPressReturned,
@@ -15,7 +16,7 @@ function TimeActions({
   return (
     <TimeActionsContainer>
       <Button
-        isActive
+        isActive={status === 'arrived'}
         onClick={onPressArrived}
       >
         <Typography
@@ -26,7 +27,7 @@ function TimeActions({
         </Typography>
       </Button>
       <Button
-        isActive={false}
+        isActive={status === 'lunch'}
         onClick={onPressLunch}
       >
         <Typography
@@ -37,7 +38,7 @@ function TimeActions({
         </Typography>
       </Button>
       <Button
-        isActive={false}
+        isActive={status === 'back'}
         onClick={onPressReturned}
       >
         <Typography
@@ -48,7 +49,7 @@ function TimeActions({
         </Typography>
       </Button>
       <Button
-        isActive={false}
+        isActive={status === 'ended'}
         onClick={onPressEnd}
       >
         <Typography
@@ -63,6 +64,7 @@ function TimeActions({
 }
 
 TimeActions.propTypes = {
+  status: PropTypes.bool.isRequired,
   onPressArrived: PropTypes.func.isRequired,
   onPressLunch: PropTypes.func.isRequired,
   onPressReturned: PropTypes.func.isRequired,

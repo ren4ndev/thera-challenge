@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useTimeInfo from './useTimeInfo';
 import api from '../../services/api';
 import useAuth from '../../services/useAuth';
-import useParser from '../../utils/useParser';
+import useDate from '../../utils/useDate';
 
 const useDailyTracker = () => {
   // Hooks
@@ -20,6 +20,8 @@ const useDailyTracker = () => {
   const {
     stopwacth,
     date,
+    clock,
+    status,
     onPressArrived,
     onPressLunch,
     onPressReturned,
@@ -28,7 +30,7 @@ const useDailyTracker = () => {
 
   const {
     parseTimesheetData,
-  } = useParser();
+  } = useDate();
 
   // Handlers
   const getUser = () => {
@@ -69,6 +71,8 @@ const useDailyTracker = () => {
     handleLogout,
     stopwacth,
     date,
+    clock,
+    status,
     onPressArrived,
     onPressLunch,
     onPressReturned,

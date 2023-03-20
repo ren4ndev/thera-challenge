@@ -1,7 +1,9 @@
+import useParser from './useParser';
+
 const useDate = () => {
-  function padTo2Digits(num) {
-    return num.toString().padStart(2, '0');
-  }
+  const {
+    padTo2Digits,
+  } = useParser();
 
   const dateToString = (date) => (
     `${padTo2Digits(
@@ -78,11 +80,28 @@ const useDate = () => {
     return toHours(calculateDelta(start, end));
   };
 
+  const parseTimesheetData = (data) => {
+    if (!data) return null;
+    const parsedTimesheet = data.items.map((item) => (
+      {
+        id: item.id,
+        date: getDate(item.start),
+        start: getHour(item.start),
+        startLunch: getHour(item.startLunch),
+        endLunch: getHour(item.endLunch),
+        end: getHour(item.end),
+        totalTime: getTimeDelta(item),
+      }
+    ));
+    return parsedTimesheet;
+  };
+
   return {
     getDate,
     getHour,
     getTimeDelta,
     dateToString,
+    parseTimesheetData,
   };
 };
 

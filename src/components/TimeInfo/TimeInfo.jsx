@@ -10,7 +10,7 @@ import Typography from '../Typography';
 
 function TimeInfo({
   date,
-  time,
+  clock,
   stopwacth,
 }) {
   return (
@@ -30,7 +30,7 @@ function TimeInfo({
           color="primary"
           weight="bold"
         >
-          {time}
+          {clock}
         </Typography>
       </TimeClock>
       <TimeTracker>
@@ -48,13 +48,13 @@ function TimeInfo({
 
 TimeInfo.propTypes = {
   date: PropTypes.string,
-  time: PropTypes.string,
+  clock: PropTypes.string,
   stopwacth: PropTypes.string,
 };
 
 TimeInfo.defaultProps = {
   date: '24/06/2006',
-  time: '17:32',
+  clock: '17:32',
   stopwacth: '07:06:32',
 };
 

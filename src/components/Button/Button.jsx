@@ -7,10 +7,12 @@ import {
 function Button({
   children,
   isActive,
+  onClick,
 }) {
   return (
     <StyledButton
       isActive={isActive}
+      onClick={onClick}
     >
       {children}
     </StyledButton>
@@ -23,10 +25,12 @@ Button.propTypes = {
     PropTypes.node,
   ]).isRequired,
   isActive: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
   isActive: true,
+  onClick: () => null,
 };
 
 export default Button;
