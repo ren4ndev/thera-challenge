@@ -22,8 +22,11 @@ function DailyTracker() {
     onPressEnd,
     isLoadingTimeSheets,
     timesheetData,
+    error,
   } = useDailyTracker();
-
+  if (error) {
+    console.log(error);
+  }
   return (
     <DaylyTrackerContainer>
       <Header

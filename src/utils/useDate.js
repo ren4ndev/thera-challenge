@@ -26,9 +26,22 @@ const useDate = () => {
     )}`;
   };
 
+  /* Workaround utilizado para lidar com retorno da API da rota POST api/Timesheet
+  A rota retorna uma data de início de turno no formato ISO8601 que deveria estar
+  no fuso UTC, mas está no fuso BRT. */
+  const addHours = (date, hours) => {
+    date.setTime(date.getTime() + hours * 60 * 60 * 1000);
+    return date;
+  };
+
+  const subtractHours = (date, hours) => {
+    date.setTime(date.getTime() - hours * 60 * 60 * 1000);
+    return date;
+  };
+
   const getHour = (timestamp) => {
     if (timestamp) {
-      const date = new Date(timestamp);
+      const date = addHours(new Date(timestamp), 3);
       return `${padTo2Digits(
         date.getHours(),
       )}:${padTo2Digits(
@@ -96,12 +109,28 @@ const useDate = () => {
     return parsedTimesheet;
   };
 
+  const parseSingleRecord = (data) => {
+    if (!data) return null;
+    const parsedTimesheet = data.items.map((item) => (
+      {
+        id: item.id,
+        date: getDate(item.start),
+        start: getHour(item.start),
+        startLunch: getHour(item.startLunch),
+        endLunch: getHour(item.endLunch),
+        end: getHour(item.end),
+        totalTime: getTimeDelta(item),
+      }
+    ));
+    return parsedTimesheet;
+  };
+
   return {
-    getDate,
-    getHour,
-    getTimeDelta,
+    addHours,
+    subtractHours,
     dateToString,
     parseTimesheetData,
+    parseSingleRecord,
   };
 };
 

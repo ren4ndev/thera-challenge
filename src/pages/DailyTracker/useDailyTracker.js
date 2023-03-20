@@ -8,6 +8,8 @@ import useDate from '../../utils/useDate';
 const useDailyTracker = () => {
   // Hooks
   const [isLoading, setIsLoading] = useState(true);
+  const [status, setStatus] = useState('');
+  const [putId, setPutId] = useState(null);
   const [error, setError] = useState(null);
   const [timesheetData, setTimesheetData] = useState([]);
   const navigate = useNavigate();
@@ -21,30 +23,15 @@ const useDailyTracker = () => {
     stopwacth,
     date,
     clock,
-    status,
-    onPressArrived,
-    onPressLunch,
-    onPressReturned,
-    onPressEnd,
+    start,
+    pause,
+    reset,
   } = useTimeInfo();
 
   const {
+    subtractHours,
     parseTimesheetData,
   } = useDate();
-
-  // Handlers
-  const getUser = () => {
-    const user = getCurrentUser();
-    if (user) {
-      return user.name.split(' ')[0];
-    }
-    return null;
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
 
   // Requests
   const fetchTimesheet = async () => {
@@ -59,6 +46,81 @@ const useDailyTracker = () => {
         setError(err);
         setIsLoading(false);
       });
+  };
+
+  const updateTimesheet = async (type) => {
+    const now = subtractHours(new Date(), 3);
+    const timesheet = JSON.parse(localStorage.getItem('timesheet'));
+    timesheet[type] = now.toISOString();
+    localStorage.setItem('timesheet', JSON.stringify(timesheet));
+    api
+      .put(
+        `/api/Timesheet/${putId}`,
+        timesheet,
+      )
+      .then(() => {
+        fetchTimesheet();
+      })
+      .catch((err) => {
+        setError(err);
+        setIsLoading(false);
+      });
+  };
+
+  const postTimesheet = async () => {
+    const timesheet = {};
+    api
+      .post('/api/Timesheet')
+      .then((response) => {
+        setPutId(response.data.id);
+        timesheet.start = response.data.start;
+        localStorage.setItem('timesheet', JSON.stringify(timesheet));
+        fetchTimesheet();
+      })
+      .catch((err) => {
+        setError(err);
+        setIsLoading(false);
+      });
+  };
+
+  // Handlers
+  const getUser = () => {
+    const user = getCurrentUser();
+    if (user) {
+      return user.name.split(' ')[0];
+    }
+    return null;
+  };
+
+  const handleLogout = () => {
+    logout();
+    localStorage.removeItem('timesheet');
+    navigate('/');
+  };
+
+  const onPressArrived = () => {
+    setStatus('arrived');
+    start();
+    postTimesheet();
+  };
+
+  const onPressLunch = () => {
+    setStatus('lunch');
+    pause();
+    updateTimesheet('startLunch');
+  };
+
+  const onPressReturned = () => {
+    setStatus('back');
+    start();
+    updateTimesheet('endLunch');
+  };
+
+  const onPressEnd = () => {
+    setStatus('ended');
+    start();
+    reset(new Date(), false);
+    updateTimesheet('end');
   };
 
   // Events
