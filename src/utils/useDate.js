@@ -128,6 +128,7 @@ const useDate = () => {
   return {
     addHours,
     subtractHours,
+    getDate,
     dateToString,
     parseTimesheetData,
     parseSingleRecord,

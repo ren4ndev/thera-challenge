@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import {
   LoginFormContainer,
   InputContainer,
+  InputWrapper,
   Input,
   InputIcon,
+  ErrorIcon,
   Spinner,
 } from './styles';
 import userIcon from '../../assets/images/usuario.svg';
 import passwordIcon from '../../assets/images/senha.svg';
+import errorIcon from '../../assets/images/error.svg';
 import Button from '../Button';
 import Typography from '../Typography';
 import PopupError from '../PopupError';
@@ -18,6 +21,7 @@ function LoginForm({
   onChangeUsername,
   password,
   onChangePassword,
+  isEmailValid,
   handleLogin,
   isLoading,
   message,
@@ -26,19 +30,34 @@ function LoginForm({
     <LoginFormContainer onSubmit={handleLogin}>
       <InputContainer>
         <InputIcon src={userIcon} alt="Ícone de usuário" />
-        <Input
-          placeholder="Usuário"
-          value={username}
-          onChange={onChangeUsername}
-        />
+        <InputWrapper>
+          <Input
+            placeholder="Usuário"
+            value={username}
+            onChange={onChangeUsername}
+          />
+          <ErrorIcon
+            src={errorIcon}
+            alt="Erro de validação"
+            isValid={isEmailValid}
+          />
+        </InputWrapper>
       </InputContainer>
       <InputContainer>
         <InputIcon src={passwordIcon} alt="Ícone de usuário" />
-        <Input
-          placeholder="Senha"
-          value={password}
-          onChange={onChangePassword}
-        />
+        <InputWrapper>
+          <Input
+            placeholder="Senha"
+            value={password}
+            onChange={onChangePassword}
+            type="password"
+          />
+          <ErrorIcon
+            src={errorIcon}
+            alt="Erro de validação"
+            isValid
+          />
+        </InputWrapper>
       </InputContainer>
       <Button type="submit">
         <Typography
@@ -62,6 +81,7 @@ LoginForm.propTypes = {
   onChangeUsername: PropTypes.func.isRequired,
   password: PropTypes.string.isRequired,
   onChangePassword: PropTypes.func.isRequired,
+  isEmailValid: PropTypes.bool.isRequired,
   handleLogin: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   message: PropTypes.string,
