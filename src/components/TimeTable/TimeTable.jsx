@@ -12,7 +12,6 @@ import {
 import Typography from '../Typography';
 
 function TimeTable({
-  isLoading,
   data,
 }) {
   const renderTableHeaders = () => {
@@ -42,70 +41,66 @@ function TimeTable({
   };
 
   const renderTableData = () => (
-    isLoading ? (
-      null
-    ) : (
-      <>
-        {data.map((item) => (
-          <TableRow key={item.id}>
-            <TableData>
-              <Typography
-                type="body"
-                color="secondary"
-                weight="bold"
-              >
-                {item.date}
-              </Typography>
-            </TableData>
-            <TableData>
-              <Typography
-                type="body"
-                color="secondary"
-                weight="bold"
-              >
-                {item.start}
-              </Typography>
-            </TableData>
-            <TableData>
-              <Typography
-                type="body"
-                color="secondary"
-                weight="bold"
-              >
-                {item.startLunch}
-              </Typography>
-            </TableData>
-            <TableData>
-              <Typography
-                type="body"
-                color="secondary"
-                weight="bold"
-              >
-                {item.endLunch}
-              </Typography>
-            </TableData>
-            <TableData>
-              <Typography
-                type="body"
-                color="secondary"
-                weight="bold"
-              >
-                {item.end}
-              </Typography>
-            </TableData>
-            <TableData>
-              <Typography
-                type="body"
-                color="secondary"
-                weight="bold"
-              >
-                {item.totalTime}
-              </Typography>
-            </TableData>
-          </TableRow>
-        ))}
-      </>
-    )
+    <>
+      {data.map((item) => (
+        <TableRow key={item.id}>
+          <TableData>
+            <Typography
+              type="body"
+              color="secondary"
+              weight="bold"
+            >
+              {item.date}
+            </Typography>
+          </TableData>
+          <TableData>
+            <Typography
+              type="body"
+              color="secondary"
+              weight="bold"
+            >
+              {item.start}
+            </Typography>
+          </TableData>
+          <TableData>
+            <Typography
+              type="body"
+              color="secondary"
+              weight="bold"
+            >
+              {item.startLunch}
+            </Typography>
+          </TableData>
+          <TableData>
+            <Typography
+              type="body"
+              color="secondary"
+              weight="bold"
+            >
+              {item.endLunch}
+            </Typography>
+          </TableData>
+          <TableData>
+            <Typography
+              type="body"
+              color="secondary"
+              weight="bold"
+            >
+              {item.end}
+            </Typography>
+          </TableData>
+          <TableData>
+            <Typography
+              type="body"
+              color="secondary"
+              weight="bold"
+            >
+              {item.totalTime}
+            </Typography>
+          </TableData>
+        </TableRow>
+      ))}
+    </>
   );
 
   return (
@@ -123,7 +118,6 @@ function TimeTable({
 }
 
 TimeTable.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
   data: PropTypes.arrayOf(
     PropTypes.objectOf(
       PropTypes.oneOfType([
