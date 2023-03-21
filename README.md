@@ -6,6 +6,10 @@
 
 - O projeto consiste em uma aplicação front-end que consome uma API com o objetivo de registrar a jornada de trabalho de uma pessoa.
 
+## Setup
+
+`npm install && npm start`
+
 ## Requisitos
 
 - Tela de login: O usuário faz o login e é redirecionado para a tela de registros;
