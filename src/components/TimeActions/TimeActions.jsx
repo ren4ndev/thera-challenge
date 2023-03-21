@@ -64,7 +64,7 @@ function TimeActions({
 }
 
 TimeActions.propTypes = {
-  status: PropTypes.bool.isRequired,
+  status: PropTypes.string.isRequired,
   onPressArrived: PropTypes.func.isRequired,
   onPressLunch: PropTypes.func.isRequired,
   onPressReturned: PropTypes.func.isRequired,
