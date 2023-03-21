@@ -13,6 +13,7 @@ function Home() {
     onChangeUsername,
     password,
     onChangePassword,
+    isEmailValid,
     handleLogin,
     isLoading,
     message,
@@ -25,6 +26,7 @@ function Home() {
         onChangeUsername={onChangeUsername}
         password={password}
         onChangePassword={onChangePassword}
+        isEmailValid={isEmailValid}
         handleLogin={handleLogin}
         isLoading={isLoading}
         message={message}

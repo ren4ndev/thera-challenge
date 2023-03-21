@@ -5,6 +5,7 @@ const PopupErrorContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 10px;
   bottom: 20px;
+  box-shadow: 10px 10px 25px -11px rgba(0,0,0,0.57);
   display: flex;
   font-family: ${({ theme }) => theme.fonts.sans};
   justify-content: center;

@@ -29,20 +29,31 @@ const useDailyTracker = () => {
   } = useTimeInfo();
 
   const {
+    getDate,
     dateToString,
     subtractHours,
     parseTimesheetData,
   } = useDate();
 
   // Requests
+  const handleError = (message) => {
+    setError(message);
+    setTimeout(() => {
+      setError(null);
+    }, 5000);
+  };
+
   const fetchTimesheet = async () => {
     setIsLoading(true);
     api
       .get('/api/Timesheet')
       .then((response) => {
         setTimesheetData(parseTimesheetData(response.data));
+        const lastEntry = getDate(
+          response.data.items[0].start,
+        );
+        localStorage.setItem('lastEntry', lastEntry);
         setIsLoading(false);
-        localStorage.setItem('lastEntry', timesheetData[0].date);
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -50,7 +61,7 @@ const useDailyTracker = () => {
           navigate('/');
           return;
         }
-        setError(err);
+        handleError(err);
         setIsLoading(false);
       });
   };
@@ -73,7 +84,7 @@ const useDailyTracker = () => {
           logout();
           navigate('/');
         }
-        setError(err);
+        handleError(err);
         setIsLoading(false);
       });
   };
@@ -96,16 +107,16 @@ const useDailyTracker = () => {
           return;
         }
         if (err.response.status === 400) {
-          setError(`400: ${err.response.message}`);
+          handleError(`400: ${err.response.message}`);
           setIsLoading(false);
           return;
         }
         if (err.response.status === 404) {
-          setError('404: Not Found');
+          handleError('404: Not Found');
           setIsLoading(false);
           return;
         }
-        setError(err.response.message);
+        handleError(err.response.message);
         setIsLoading(false);
       });
   };
@@ -122,13 +133,14 @@ const useDailyTracker = () => {
   const handleLogout = () => {
     logout();
     localStorage.removeItem('timesheet');
+    localStorage.removeItem('lastEntry');
     navigate('/');
   };
 
   const onPressArrived = () => {
     const lastEntry = localStorage.getItem('lastEntry');
     if (lastEntry === dateToString(new Date())) {
-      setError('Já existe um registro na data de hoje');
+      handleError('Já existe um registro na data de hoje');
       return;
     }
     if (status === '' || status === 'ended') {

@@ -14,22 +14,46 @@ const InputContainer = styled.div`
   padding-right: 73px;
 `;
 
-const Input = styled.input`
+const InputWrapper = styled.div`
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.primary};
   border: none;
   border-radius: 5px;
-  color: ${({ theme }) => theme.colors.quarternary};
-  font-family: ${({ theme }) => theme.fonts.sans};
+  display: flex;
   font-size: 26px;
   height: 63px;
   line-height: 36px;
+  justify-content: space-between;
   padding: 13px 24px;
   width: 378px;
+  `;
+
+const Input = styled.input`
+  border: 0;
+  color: ${({ theme }) => theme.colors.quarternary};
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 26px;
+  line-height: 36px;
+  height: 100%;
+  width: 300px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const InputIcon = styled.img`
   height: 50px;
   margin-right: 23px;
   width: 50px;
+`;
+
+const ErrorIcon = styled.img`
+  display: ${({ isValid }) => {
+    if (isValid) return 'none';
+    return 'block';
+  }};
+  height: 20px;
+  width: 20px;
 `;
 
 const Spinner = styled.div`
@@ -49,7 +73,9 @@ const Spinner = styled.div`
 export {
   LoginFormContainer,
   InputContainer,
+  InputWrapper,
   Input,
   InputIcon,
+  ErrorIcon,
   Spinner,
 };
