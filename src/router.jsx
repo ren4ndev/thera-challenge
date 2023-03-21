@@ -1,12 +1,26 @@
-import { createBrowserRouter } from 'react-router-dom';
-import Home from './pages/Home';
+import React from 'react';
+import {
+  Routes,
+  Route,
+} from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
+import SignIn from './pages/SignIn';
+import DailyTracker from './pages/DailyTracker';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    // eslint-disable-next-line react/react-in-jsx-scope
-    element: <Home />,
-  },
-]);
+function Router() {
+  return (
+    <Routes>
+      <Route path="/" element={<SignIn />} />
+      <Route
+        path="/tracker"
+        element={(
+          <PrivateRoute>
+            <DailyTracker />
+          </PrivateRoute>
+        )}
+      />
+    </Routes>
+  );
+}
 
-export default router;
+export default Router;

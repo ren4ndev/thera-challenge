@@ -9,18 +9,16 @@ const Typography = styled('span').attrs(({ tag }) => ({
     return 'inherit';
   }
 };
-  font-size: ${({ theme, type }) => theme.typography.types[type].mobileSize};
+  font-size: ${({ theme, type }) => theme.typography.types[type].size};
   font-weight: ${({ theme, weight }) => {
     if (weight) return theme.weight[weight];
     return '400';
   }
 };
-  line-height: ${({ theme, type }) => theme.typography.types[type].mobileLineHeight};
+  line-height: ${({ theme, type }) => theme.typography.types[type].lineHeight};
   transition: all .4s ease;
   
   @media screen and (min-width: ${breakpoints.medium}) {
-    font-size: ${({ theme, type }) => theme.typography.types[type].size};
-    line-height: ${({ theme, type }) => theme.typography.types[type].lineHeight};
   }
 `;
 
