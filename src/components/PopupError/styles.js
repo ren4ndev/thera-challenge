@@ -6,6 +6,7 @@ const PopupErrorContainer = styled.div`
   border-radius: 10px;
   bottom: 20px;
   display: flex;
+  font-family: ${({ theme }) => theme.fonts.sans};
   justify-content: center;
   height: 60px;
   position: fixed;
@@ -19,9 +20,9 @@ const PopupErrorContainer = styled.div`
 `;
 
 const ErrorIcon = styled.img`
-  height: 30px;
+  height: 20px;
   margin-right: 15px;
-  width: 30px;
+  width: 20px;
 `;
 
 export {

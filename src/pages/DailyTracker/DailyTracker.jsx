@@ -7,6 +7,7 @@ import TimeInfo from '../../components/TimeInfo';
 import TimeActions from '../../components/TimeActions';
 import TimeTable from '../../components/TimeTable';
 import useDailyTracker from './useDailyTracker';
+import PopupError from '../../components/PopupError';
 
 function DailyTracker() {
   const {
@@ -24,9 +25,6 @@ function DailyTracker() {
     timesheetData,
     error,
   } = useDailyTracker();
-  if (error) {
-    console.log(error);
-  }
   return (
     <DaylyTrackerContainer>
       <Header
@@ -49,6 +47,7 @@ function DailyTracker() {
         isLoading={isLoadingTimeSheets}
         data={timesheetData}
       />
+      <PopupError message={error} />
     </DaylyTrackerContainer>
   );
 }

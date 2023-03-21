@@ -29,6 +29,7 @@ const useDailyTracker = () => {
   } = useTimeInfo();
 
   const {
+    dateToString,
     subtractHours,
     parseTimesheetData,
   } = useDate();
@@ -41,8 +42,14 @@ const useDailyTracker = () => {
       .then((response) => {
         setTimesheetData(parseTimesheetData(response.data));
         setIsLoading(false);
+        localStorage.setItem('lastEntry', timesheetData[0].date);
       })
       .catch((err) => {
+        if (err.response.status === 401) {
+          logout();
+          navigate('/');
+          return;
+        }
         setError(err);
         setIsLoading(false);
       });
@@ -62,6 +69,10 @@ const useDailyTracker = () => {
         fetchTimesheet();
       })
       .catch((err) => {
+        if (err.response.status === 401) {
+          logout();
+          navigate('/');
+        }
         setError(err);
         setIsLoading(false);
       });
@@ -78,7 +89,23 @@ const useDailyTracker = () => {
         fetchTimesheet();
       })
       .catch((err) => {
-        setError(err);
+        if (err.response.status === 401) {
+          setIsLoading(false);
+          logout();
+          navigate('/');
+          return;
+        }
+        if (err.response.status === 400) {
+          setError(`400: ${err.response.message}`);
+          setIsLoading(false);
+          return;
+        }
+        if (err.response.status === 404) {
+          setError('404: Not Found');
+          setIsLoading(false);
+          return;
+        }
+        setError(err.response.message);
         setIsLoading(false);
       });
   };
@@ -99,28 +126,39 @@ const useDailyTracker = () => {
   };
 
   const onPressArrived = () => {
-    setStatus('arrived');
-    start();
-    postTimesheet();
+    const lastEntry = localStorage.getItem('lastEntry');
+    if (lastEntry === dateToString(new Date())) {
+      setError('Já existe um registro na data de hoje');
+      return;
+    }
+    if (status === '' || status === 'ended') {
+      setStatus('arrived');
+      start();
+      postTimesheet();
+    }
   };
 
   const onPressLunch = () => {
+    if (status !== 'arrived') return;
     setStatus('lunch');
     pause();
     updateTimesheet('startLunch');
   };
 
   const onPressReturned = () => {
+    if (status !== 'lunch') return;
     setStatus('back');
     start();
     updateTimesheet('endLunch');
   };
 
   const onPressEnd = () => {
-    setStatus('ended');
-    start();
-    reset(new Date(), false);
-    updateTimesheet('end');
+    if (status === 'arrived' || status === 'back') {
+      setStatus('ended');
+      start();
+      reset(new Date(), false);
+      updateTimesheet('end');
+    }
   };
 
   // Events

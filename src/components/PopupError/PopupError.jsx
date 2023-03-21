@@ -24,7 +24,11 @@ function PopupError({
 }
 
 PopupError.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
+};
+
+PopupError.defaultProps = {
+  message: null,
 };
 
 export default PopupError;
