@@ -17,6 +17,10 @@ const theme = {
   },
   typography: {
     types: {
+      caption: {
+        size: '18px',
+        lineHeight: '25px',
+      },
       body: {
         size: '20px',
         lineHeight: '27px',

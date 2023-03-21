@@ -15,6 +15,9 @@ const useAuth = () => {
         }
         return response.data;
       })
+      .catch((err) => (
+        err.response
+      ))
   );
 
   const logout = () => {

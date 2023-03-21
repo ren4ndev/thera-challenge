@@ -26,23 +26,18 @@ const useSignIn = () => {
     setMessage();
     setIsLoading(true);
 
-    login(username, password).then(
-      () => {
-        navigate('/tracker');
-        window.location.reload();
-      },
-      (error) => {
-        const resMessage = (
-          error.response
-          && error.response.data
-          && error.response.data.message)
-          || error.message
-          || error.toString();
-
-        setIsLoading(false);
-        setMessage(resMessage);
-      },
-    );
+    login(username, password)
+      .then(
+        (response) => {
+          if (response.status === 401) {
+            setMessage('Usuário ou senha inválidos. Tente novamente');
+            setIsLoading(false);
+            return;
+          }
+          navigate('/tracker');
+          window.location.reload();
+        },
+      );
   };
 
   return {
